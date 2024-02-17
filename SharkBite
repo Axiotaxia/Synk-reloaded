@@ -1,0 +1,42 @@
+local TweenService = game:GetService('TweenService')
+local RunService = game:GetService('RunService')
+
+local lp = game.Players.LocalPlayer
+
+function bypass_teleport(destination, callback)
+	if lp.Character and lp.Character:FindFirstChild('HumanoidRootPart') then
+		local cf = CFrame.new(destination)
+		local humanoidRootPart = lp.Character.HumanoidRootPart
+
+		local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Linear)
+		local tween = TweenService:Create(humanoidRootPart, tweenInfo, {CFrame = cf})
+
+		tween.Completed:Connect(function()
+			print('Teleporting Done!')
+			if callback then
+				callback()
+			end
+		end)
+
+		tween:Play()
+	end
+end
+
+local vases = game.Workspace.Vases:GetDescendants()
+local currentIndex = 1
+
+local function teleportToNextVase()
+	if currentIndex <= #vases then
+		local vase = vases[currentIndex]
+		if vase.Name == "Vase" then
+			bypass_teleport(vase.Position, function()
+				wait(1)  -- Introducing a delay of 1 second after reaching each vase
+				currentIndex = currentIndex + 1
+				teleportToNextVase() -- Recursively teleport to the next vase
+			end)
+		end
+	end
+end
+
+teleportToNextVase() -- Start teleporting sequence
+game.Workspace.Gravity = 0

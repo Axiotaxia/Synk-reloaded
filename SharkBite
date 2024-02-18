@@ -1,42 +1,59 @@
-local TweenService = game:GetService('TweenService')
-local RunService = game:GetService('RunService')
+-- Gui to Lua
+-- Version: 3.2
 
-local lp = game.Players.LocalPlayer
+-- Instances:
 
-function bypass_teleport(destination, callback)
-	if lp.Character and lp.Character:FindFirstChild('HumanoidRootPart') then
-		local cf = CFrame.new(destination)
-		local humanoidRootPart = lp.Character.HumanoidRootPart
+local ScreenGui = Instance.new("ScreenGui")
+local TextButton = Instance.new("TextButton")
+local UICorner = Instance.new("UICorner")
 
-		local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Linear)
-		local tween = TweenService:Create(humanoidRootPart, tweenInfo, {CFrame = cf})
+--Properties:
 
-		tween.Completed:Connect(function()
-			print('Teleporting Done!')
-			if callback then
-				callback()
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+TextButton.Parent = ScreenGui
+TextButton.BackgroundColor3 = Color3.fromRGB(83, 83, 83)
+TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.BorderSizePixel = 0
+TextButton.Position = UDim2.new(0.180463582, 0, 0.503460228, 0)
+TextButton.Size = UDim2.new(0, 50, 0, 50)
+TextButton.Font = Enum.Font.Roboto
+TextButton.Text = "Vase"
+TextButton.TextColor3 = Color3.fromRGB(185, 185, 185)
+TextButton.TextSize = 25.000
+TextButton.TextWrapped = true
+
+UICorner.Parent = TextButton
+
+-- Scripts:
+
+local function JENRSM_fake_script() -- ScreenGui.LocalScript 
+	local script = Instance.new('LocalScript', ScreenGui)
+
+	local VaseFolder = game.Workspace.Vases
+	local button = script.Parent.TextButton
+	local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
+	local enabled = false
+	
+	while wait() do
+		if enabled == true then
+			for i,v in pairs(VaseFolder:GetDescendants()) do
+				if v.Name == "Vase" then
+					hrp.CFrame = v.CFrame
+				end
 			end
-		end)
-
-		tween:Play()
-	end
-end
-
-local vases = game.Workspace.Vases:GetDescendants()
-local currentIndex = 1
-
-local function teleportToNextVase()
-	if currentIndex <= #vases then
-		local vase = vases[currentIndex]
-		if vase.Name == "Vase" then
-			bypass_teleport(vase.Position, function()
-				wait(1)  -- Introducing a delay of 1 second after reaching each vase
-				currentIndex = currentIndex + 1
-				teleportToNextVase() -- Recursively teleport to the next vase
-			end)
 		end
 	end
+	
+	button.MouseButton1Down:Connect(function()
+		if enabled == false then
+			enabled = true
+			button.TextColor = Color3.fromRGB(0,150,0)
+		elseif enabled == true then
+			enabled = false
+			button.TextColor = Color3.fromRGB(185, 185, 185)
+		end
+	end)
 end
-
-teleportToNextVase() -- Start teleporting sequence
-game.Workspace.Gravity = 0
+coroutine.wrap(JENRSM_fake_script)()

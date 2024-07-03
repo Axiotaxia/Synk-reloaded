@@ -48,10 +48,10 @@ local Scripts = Instance.new("Folder")
 local Open = Instance.new("TextButton")
 local UICorner_14 = Instance.new("UICorner")
 
---Properties:
+local plr = game.Players:WaitForChild("Axiotaxi")
 
 ATLACracker.Name = "ATLACracker"
-ATLACracker.Parent = game.Players:WaitforChild("Axiotaxi"):WaitForChild("PlayerGui")
+ATLACracker.Parent = plr:WaitForChild("PlayerGui")
 ATLACracker.ResetOnSpawn = false
 
 Loading.Name = "Loading"
@@ -449,7 +449,7 @@ UICorner_14.Parent = Open
 
 -- Scripts:
 
-local function WGFZBDC_fake_script() -- Loading.Loader 
+local function JWATDT_fake_script() -- Loading.Loader 
 	local script = Instance.new('LocalScript', Loading)
 
 	local loader = script.Parent
@@ -482,8 +482,8 @@ local function WGFZBDC_fake_script() -- Loading.Loader
 	main:TweenSizeAndPosition(UDim2.new(0.453, 0,0.646, 0), UDim2.new(0.273, 0,0.176, 0),Enum.EasingDirection.In, Enum.EasingStyle.Linear,0.5,true)
 	
 end
-coroutine.wrap(WGFZBDC_fake_script)()
-local function REBK_fake_script() -- Panel.Handler 
+coroutine.wrap(JWATDT_fake_script)()
+local function LREI_fake_script() -- Panel.Handler 
 	local script = Instance.new('LocalScript', Panel)
 
 	local open = script.Parent.Parent.Open
@@ -509,25 +509,10 @@ local function REBK_fake_script() -- Panel.Handler
 		open.Interactable = false
 	end)
 end
-coroutine.wrap(REBK_fake_script)()
-local function OYWKHII_fake_script() -- Scripts.Something 
-	local script = Instance.new('Script', Scripts)
-
-	while wait(2) do
-		print("I do something else")
-	end
-end
-coroutine.wrap(OYWKHII_fake_script)()
-local function KHSDXUB_fake_script() -- Scripts.Replacer 
+coroutine.wrap(LREI_fake_script)()
+local function SFOP_fake_script() -- Scripts.Replacer 
 	local script = Instance.new('Script', Scripts)
 
 	local Folder = script.Parent
-	local function something()
-		local OriginalScript = game.ServerScriptService:WaitForChild("Something")
-		local NewScript = Folder:WaitForChild("Something")
-		OriginalScript.Disabled = true
-		OriginalScript.Name = "DisabledSomething"
-		NewScript.Parent = game.ServerScriptService
-	end
 end
-coroutine.wrap(KHSDXUB_fake_script)()
+coroutine.wrap(SFOP_fake_script)()

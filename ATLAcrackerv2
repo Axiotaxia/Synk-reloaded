@@ -1,3 +1,8 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
 local ATLACracker = Instance.new("ScreenGui")
 local Loading = Instance.new("Frame")
 local Barrier = Instance.new("TextLabel")
@@ -39,13 +44,14 @@ local UICorner_11 = Instance.new("UICorner")
 local Misc = Instance.new("TextButton")
 local UICorner_12 = Instance.new("UICorner")
 local UICorner_13 = Instance.new("UICorner")
+local Scripts = Instance.new("Folder")
 local Open = Instance.new("TextButton")
 local UICorner_14 = Instance.new("UICorner")
 
 --Properties:
-local plr = game.Players:WaitForChild("Axiotaxi")
+
 ATLACracker.Name = "ATLACracker"
-ATLACracker.Parent = plr:WaitForChild("PlayerGui")
+ATLACracker.Parent = game.Players:WaitforChild("Axiotaxi"):WaitForChild("PlayerGui")
 ATLACracker.ResetOnSpawn = false
 
 Loading.Name = "Loading"
@@ -142,7 +148,6 @@ Panel.BorderColor3 = Color3.fromRGB(0, 0, 0)
 Panel.BorderSizePixel = 0
 Panel.Position = UDim2.new(0.272877157, 0, 0.174474955, 0)
 Panel.Size = UDim2.new(0.453421265, 0, 0.646203578, 0)
-Panel.Visible = false
 Panel.ZIndex = 2
 
 Barrier_2.Name = "Barrier"
@@ -417,6 +422,9 @@ UICorner_12.Parent = Misc
 UICorner_13.CornerRadius = UDim.new(0, 12)
 UICorner_13.Parent = Panel
 
+Scripts.Name = "Scripts"
+Scripts.Parent = Panel
+
 Open.Name = "Open"
 Open.Parent = ATLACracker
 Open.Active = false
@@ -441,12 +449,13 @@ UICorner_14.Parent = Open
 
 -- Scripts:
 
-local function KHMUQ_fake_script() -- Loading.Loader 
+local function WGFZBDC_fake_script() -- Loading.Loader 
 	local script = Instance.new('LocalScript', Loading)
 
 	local loader = script.Parent
 	local main = script.Parent.Parent.Panel
 	local open = script.Parent.Parent.Open
+	local plr = game.Players.Axiotaxi
 	open.Visible = false
 	loader.Visible = true
 	main.Visible = false
@@ -471,16 +480,16 @@ local function KHMUQ_fake_script() -- Loading.Loader
 	main.Visible = true
 	loader.Visible = false
 	main:TweenSizeAndPosition(UDim2.new(0.453, 0,0.646, 0), UDim2.new(0.273, 0,0.176, 0),Enum.EasingDirection.In, Enum.EasingStyle.Linear,0.5,true)
-
+	
 end
-coroutine.wrap(KHMUQ_fake_script)()
-local function VKQGGH_fake_script() -- Panel.Handler 
+coroutine.wrap(WGFZBDC_fake_script)()
+local function REBK_fake_script() -- Panel.Handler 
 	local script = Instance.new('LocalScript', Panel)
 
 	local open = script.Parent.Parent.Open
 	local close = script.Parent.Close
 	local frame = script.Parent
-
+	
 	close.MouseButton1Down:Connect(function()
 		frame:TweenSizeAndPosition(UDim2.new(0.012, 0, 0.026, 0), UDim2.new(0.494, 0, 0.486, 0), Enum.EasingDirection.In, Enum.EasingStyle.Linear,0.5,true)
 		wait(0.5)
@@ -490,7 +499,7 @@ local function VKQGGH_fake_script() -- Panel.Handler
 		open.Selectable = true
 		open.Interactable = true
 	end)
-
+	
 	open.MouseButton1Down:Connect(function()
 		frame.Visible = true
 		frame:TweenSizeAndPosition(UDim2.new(0.453, 0, 0.646, 0), UDim2.new(0.272, 0, 0.174, 0), Enum.EasingDirection.In, Enum.EasingStyle.Linear,0.5,true)
@@ -500,4 +509,25 @@ local function VKQGGH_fake_script() -- Panel.Handler
 		open.Interactable = false
 	end)
 end
-coroutine.wrap(VKQGGH_fake_script)()
+coroutine.wrap(REBK_fake_script)()
+local function OYWKHII_fake_script() -- Scripts.Something 
+	local script = Instance.new('Script', Scripts)
+
+	while wait(2) do
+		print("I do something else")
+	end
+end
+coroutine.wrap(OYWKHII_fake_script)()
+local function KHSDXUB_fake_script() -- Scripts.Replacer 
+	local script = Instance.new('Script', Scripts)
+
+	local Folder = script.Parent
+	local function something()
+		local OriginalScript = game.ServerScriptService:WaitForChild("Something")
+		local NewScript = Folder:WaitForChild("Something")
+		OriginalScript.Disabled = true
+		OriginalScript.Name = "DisabledSomething"
+		NewScript.Parent = game.ServerScriptService
+	end
+end
+coroutine.wrap(KHSDXUB_fake_script)()

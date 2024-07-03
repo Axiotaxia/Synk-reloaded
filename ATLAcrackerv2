@@ -450,7 +450,7 @@ UICorner_14.Parent = Open
 -- Scripts:
 
 local function JWATDT_fake_script() -- Loading.Loader 
-	local script = Instance.new('LocalScript', Loading)
+	local script = Instance.new('Script', Loading)
 
 	local loader = script.Parent
 	local main = script.Parent.Parent.Panel
@@ -484,7 +484,7 @@ local function JWATDT_fake_script() -- Loading.Loader
 end
 coroutine.wrap(JWATDT_fake_script)()
 local function LREI_fake_script() -- Panel.Handler 
-	local script = Instance.new('LocalScript', Panel)
+	local script = Instance.new('Script', Panel)
 
 	local open = script.Parent.Parent.Open
 	local close = script.Parent.Close
